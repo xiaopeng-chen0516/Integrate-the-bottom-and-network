@@ -21,8 +21,10 @@
         android:id="@+id/bottom1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:background="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:itemTextColor="@color/selector_color"
+        app:itemIconTint="@color/selector_color"
         app:menu="@menu/navigation" />
 
 </LinearLayout>

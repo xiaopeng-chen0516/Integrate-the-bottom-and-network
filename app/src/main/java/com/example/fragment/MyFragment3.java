@@ -33,7 +33,7 @@ public class MyFragment3 extends Fragment {
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(), Main2Activity.class);
                 startActivity(intent);
-                getActivity().finish();
+
 
             }
         });
