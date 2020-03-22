@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager=findViewById(R.id.viewpager);
+        getSupportActionBar().hide();// 隐藏ActionBar
 
+
+        viewPager=findViewById(R.id.viewpager);
 
         //底部菜单导航栏与viewPager相交互
         bottomNavigationView=findViewById(R.id.bottom1);
