@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -10,10 +9,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我是主界面"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数据一："
+            android:textSize="20dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textSize="30dp"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检查更新数据"
+            />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="100dp"
-        android:layout_height="50dp"/>
+
 </LinearLayout>
