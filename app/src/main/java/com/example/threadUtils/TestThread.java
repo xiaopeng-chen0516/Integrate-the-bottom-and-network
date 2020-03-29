@@ -75,12 +75,10 @@ public class TestThread {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(1000);
                         Message msg = new Message();
                         msg.what = 1;
-                        myFragment1.handler1.sendMessage(msg);
-
-
+                        myFragment1.mHandler.sendMessage(msg);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

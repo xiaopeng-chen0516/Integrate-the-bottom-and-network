@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Main2Activity;
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
 public class MyFragment3 extends Fragment {

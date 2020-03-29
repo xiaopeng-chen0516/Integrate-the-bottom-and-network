@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+
 import android.os.Bundle;
 
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.fragment.MyFragment1;
 import com.example.fragment.MyFragment2;
 import com.example.fragment.MyFragment3;
+
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
