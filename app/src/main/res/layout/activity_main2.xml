@@ -6,11 +6,10 @@
     android:background="#E1E1E1"
     >
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@drawable/modul_bg"
-        />
+<Button
+    android:id="@+id/cs_btn"
+    android:layout_width="100dp"
+    android:layout_height="50dp"
+    android:background="#8BC34A"/>
 
 </RelativeLayout>

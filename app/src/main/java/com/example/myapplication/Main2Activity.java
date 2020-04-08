@@ -2,35 +2,56 @@ package com.example.myapplication;
 
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.utils.Table;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+
+import com.example.threadUtils.TestThread;
+
+
+
 
 public class Main2Activity extends Activity {
+    public Handler handler;
+    final TestThread t=new TestThread(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        Table table=new Table();
 
-        LineChart chart = findViewById(R.id.chart);
-        // 制作7个数据点（沿x坐标轴）
-        LineData mLineData = table.makeLineData(7);
-        table.setChartStyle(chart, mLineData, Color.WHITE);
+        Button btn=findViewById(R.id.cs_btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                t.test5();
+            }
+        });
+
+
+
+
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                Toast.makeText(Main2Activity.this,"测试",Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
     }
+
+
+
+
 
 }

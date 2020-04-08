@@ -24,7 +24,9 @@ public class NetUilts {
         HttpURLConnection conn=null;
         try {
 //            URL url=new URL("http://z2665o0617.qicp.vip/MyHttpServlet");
-            URL url=new URL("http://z2665o0617.qicp.vip/ServletDemo1");
+//            URL url=new URL("http://z2665o0617.qicp.vip/ServletDemo1");
+//            URL url=new URL("http://z2665o0617.qicp.vip/queryAll");
+            URL url=new URL("http://z2665o0617.qicp.vip/queryAll");
 //            URL url=new URL("http://127.0.0.1:8080/MyHttpServlet");
             conn=(HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");//设置请求方式

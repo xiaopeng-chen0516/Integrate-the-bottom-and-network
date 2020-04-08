@@ -1,6 +1,8 @@
 package com.example.utils;
 
 import android.graphics.Color;
+import android.util.Log;
+
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -8,10 +10,14 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 
+
 public class Table {
+
     public void setChartStyle(LineChart mLineChart, LineData lineData,
                               int color) {
         // 是否在折线图上添加边框
@@ -28,6 +34,7 @@ public class Table {
         // 那么mLineChart.setGridBackgroundColor(Color.CYAN)将失效;
         mLineChart.setDrawGridBackground(false);
         mLineChart.setGridBackgroundColor(Color.WHITE);
+
 
         // 触摸
         mLineChart.setTouchEnabled(false);
@@ -50,6 +57,9 @@ public class Table {
         // mLineChart.getAxisRight().setDrawGridLines(false);
         // // 隐藏X轴竖网格线
         // mLineChart.getXAxis().setDrawGridLines(false);
+
+        Log.i("表宽度", String.valueOf(mLineChart.getWidth()));
+
         mLineChart.getAxisRight().setEnabled(false); // 隐藏右边 的坐标轴(true不隐藏)
         mLineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM); // 让x轴在下面
         // 设置背景
@@ -67,20 +77,20 @@ public class Table {
         mLegend.setTextColor(Color.BLUE);// 颜色
 
         // 沿x轴动画，时间2000毫秒。
-        mLineChart.animateX(4000);
+        mLineChart.animateX(1000);
     }
 
     /**
      * @param count 数据点的数量。
      * @return
      */
-    public LineData makeLineData(int count) {
+    public LineData makeLineData(int count,float[] fl) {
         ArrayList<String> x = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             // x轴显示的数据
             x.add("x:" + i);
         }
-        float[] fl={12.2f,13.0f,12.3f,15.2f,25.0f,65.2f,40.2f};
+
         // y轴的数据
         ArrayList<Entry> y = new ArrayList<Entry>();
         for (int i = 0; i < count; i++) {
@@ -129,34 +139,35 @@ public class Table {
 
         // 填充曲线下方的区域，红色，半透明。
         mLineDataSet.setDrawFilled(true);
-        mLineDataSet.setFillAlpha(10);
+        mLineDataSet.setFillAlpha(5);
         mLineDataSet.setFillColor(Color.GREEN);
 
         // 填充折线上数据点、圆球里面包裹的中心空白处的颜色。
         mLineDataSet.setCircleColorHole(Color.WHITE);
 
         // 设置折线上显示数据的格式。如果不设置，将默认显示float数据格式。
-//        mLineDataSet.setValueFormatter(new ValueFormatter() {
+        mLineDataSet.setValueFormatter(new ValueFormatter() {
 //
-////          @Override
-////          public String getFormattedValue(float value) {
-////              int n = (int) value;
-////              String s = "y:" + n;
-////              return s;
-////          }
+//          @Override
+//          public String getFormattedValue(float value) {
+//              int n = (int) value;
+//              String s = "y:" + n;
+//              return s;
+//          }
 //
 //
 //
-//            @Override
-//            public String getFormattedValue(float value, Entry entry,
-//                                            int dataSetIndex, ViewPortHandler viewPortHandler) {
-//                // TODO Auto-generated method stub
-//                int n = (int) value;
-//                String s = String.valueOf(n);
-//                return s;
-//
-//            }
-//        });
+            /*格式整理*/
+            @Override
+            public String getFormattedValue(float value, Entry entry,
+                                            int dataSetIndex, ViewPortHandler viewPortHandler) {
+                // TODO Auto-generated method stub
+                float n = (float) value;
+                String s = String.valueOf(n);
+                return s;
+
+            }
+        });
 
         ArrayList<LineDataSet> mLineDataSets = new ArrayList<LineDataSet>();
         mLineDataSets.add(mLineDataSet);
@@ -165,4 +176,9 @@ public class Table {
         LineData mLineData = new LineData(x, mLineDataSets);
         return mLineData;
     }
+
+
+
+
+
 }

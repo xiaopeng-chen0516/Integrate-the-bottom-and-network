@@ -78,7 +78,7 @@ public class MyFragment1 extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 Map<Integer, Object> map;
-                map = unparsedData.Unparse(msg.obj.toString());
+                map = unparsedData.queryAll(msg.obj.toString());
                 String string = msg.obj.toString();
                 if (string.equals("1")) {
                     init();
@@ -133,7 +133,7 @@ public class MyFragment1 extends Fragment {
     public void add(Map map) {
         linerAdd.removeAllViews();
         String[] str = {"O2", "CO2", "PH", "WD", "XI", "GE"};
-        String[] str1={"0.2","0.6","0.5","24","0.5","0.3"};
+        String[] str1={"0.2","0.6","0.5","24","0.5","0.3"};//标准值
 
         for (int i = 0; i < map.size(); i++) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_linear, null);
@@ -143,6 +143,7 @@ public class MyFragment1 extends Fragment {
             textView1.setText(str[i]);
             textView2.setText(map.get(i + 1).toString());
             double d = Double.parseDouble(map.get(i + 1).toString());
+            //和标准值进行对比，并设置字体颜色
             if (d > Double.parseDouble(str1[i])) {
                 textView2.setTextColor(android.graphics.Color.parseColor("#FF0000"));
             }
