@@ -50,4 +50,15 @@ public class UnparsedData {
         }
         return map;
     }
+    public List query7O2(String listData) throws JSONException {
+
+
+        List<Object> list=new ArrayList<>();
+        JSONArray jsonArray=new JSONArray(listData);
+        for (int i = jsonArray.length()-1; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);  //解析JSON数据
+            list.add(jsonObject);
+        }
+        return list;
+    }
 }

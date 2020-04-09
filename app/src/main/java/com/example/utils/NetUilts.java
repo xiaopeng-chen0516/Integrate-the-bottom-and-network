@@ -43,18 +43,18 @@ public class NetUilts {
             int responseCode=conn.getResponseCode();//获取响应吗
             if(responseCode==200){
                 //访问成功
-                Log.i("访问成功","1");
+                Log.i("loginofPost访问成功","1");
                 InputStream is=conn.getInputStream();//得到InputStream输入流
                 String state=getstateFromInputstream(is);
-                Log.i("请求结果",state);
+                Log.i("loginofPost请求结果",state);
                 return state;
             }else{
                 //访问失败
-                Log.i("访问失败","1");
+                Log.i("loginofPost访问失败","1");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("访问异常","1");
+            Log.i("loginofPost访问异常","1");
         }finally{
             if(conn!=null){//如果conn不等于空，则关闭连接
                 conn.disconnect();
@@ -97,6 +97,48 @@ public class NetUilts {
             e.printStackTrace();
 //            Logger.i("访问异常！");
             Log.i("访问异常","1");
+        }finally{
+            if(conn!=null){//如果conn不等于空，则关闭连接
+                conn.disconnect();
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * 请求查询近七天氧气
+     * @param
+     * @param
+     * @return
+     */
+    public static String  Post7O2(){
+        HttpURLConnection conn=null;
+        try {
+
+            URL url=new URL("http://z2665o0617.qicp.vip/query7O2");
+            conn=(HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");//设置请求方式
+            conn.setConnectTimeout(10000);//设置连接超时时间
+            conn.setReadTimeout(5000);//设置读取超时时间
+
+            conn.connect();//开始连接
+            Log.i("开始连接",conn.toString());
+            int responseCode=conn.getResponseCode();//获取响应吗
+            if(responseCode==200){
+                //访问成功
+                Log.i("Post7O2访问成功","1Post7O2");
+                InputStream is=conn.getInputStream();//得到InputStream输入流
+                String state=getstateFromInputstream(is);
+                Log.i("Post7O2请求结果",state);
+                return state;
+            }else{
+                //访问失败
+                Log.i("Post7O2访问失败","Post7O2");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("Post7O2访问异常","Post7O2");
         }finally{
             if(conn!=null){//如果conn不等于空，则关闭连接
                 conn.disconnect();

@@ -1,15 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:background="#E1E1E1"
-    >
+    android:orientation="vertical"
+    android:padding="10dp">
 
-<Button
-    android:id="@+id/cs_btn"
-    android:layout_width="100dp"
-    android:layout_height="50dp"
-    android:background="#8BC34A"/>
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lc"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/modul_bg" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/cs_btn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="#8BC34A" />
+
+</LinearLayout>

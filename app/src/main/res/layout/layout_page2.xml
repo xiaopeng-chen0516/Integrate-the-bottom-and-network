@@ -20,12 +20,23 @@
                 android:layout_height="250dp"
                 android:background="@drawable/modul_bg"
                 />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/modul_bg"
+                />
 
             <Button
                 android:id="@+id/btn2"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:text="更新数据"/>
+            <Button
+                android:id="@+id/O2"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="O2"/>
         </LinearLayout>
 
     </ScrollView>

@@ -101,7 +101,6 @@ public class TestThread {
             }).start();
     }
 
-
     public void test4() {
         /**
          * 表格数据
@@ -124,8 +123,6 @@ public class TestThread {
         }).start();
     }
 
-
-
     public void test5() {
         /**
          * get请求
@@ -144,6 +141,24 @@ public class TestThread {
                 }else {
                     msg.obj =1;
                     main2Activity.handler.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+
+    public void query7O2(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String  s= NetUilts.Post7O2();
+                Log.i("线程query7O2--》中的值",s);
+                Message msg = new Message();
+                if (s!=null){
+                    msg.obj = s;
+                    myFragment2.O2Handler.sendMessage(msg);
+                }else {
+                    msg.obj =1;
+                    myFragment2.O2Handler.sendMessage(msg);
                 }
             }
         }).start();

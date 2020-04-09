@@ -139,7 +139,6 @@ public class MyFragment1 extends Fragment {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.item_linear, null);
             TextView textView1 = view.findViewById(R.id.text_1);
             TextView textView2 = view.findViewById(R.id.text_2);
-
             textView1.setText(str[i]);
             textView2.setText(map.get(i + 1).toString());
             double d = Double.parseDouble(map.get(i + 1).toString());
