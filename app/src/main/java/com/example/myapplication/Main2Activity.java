@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.threadUtils.TestThread;
+import com.example.utils.Table;
+import com.example.utils.UnparsedData;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -31,6 +33,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.Utils;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,17 +42,39 @@ import java.util.List;
 public class Main2Activity extends Activity {
     public Handler handler;
     final TestThread t=new TestThread(this);
+    String string="[{date=2020-04-08, xi=0.002, o2=0.002, co2=0.002, ph=0.002, wd=0.002, ge=0.002}, {date=2020-04-07, xi=0.03, o2=0.03, co2=0.03, ph=0.03, wd=0.03, ge=0.03}, {date=2020-04-09, xi=0.005, o2=0.004, co2=0.001, ph=0.005, wd=0.001, ge=0.004}]";
 
-    private LineChart lc;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Table table=new Table();
+
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
         Button btn=findViewById(R.id.cs_btn);
+        Button btn1=findViewById(R.id.cs_btn1);
+        LineChart lc = findViewById(R.id.lc);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 t.test5();
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnparsedData unparsedData=new UnparsedData();
+                try {
+                    List list = unparsedData.query7O2(string);
+                    Log.i("list", String.valueOf(list));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -60,19 +86,20 @@ public class Main2Activity extends Activity {
 
             }
         };
-
-        initView();
-        initData();
+        float[] floats={0.002f,0.003f,0.005f};
 
     }
 
 
-    private void initView() {
-        lc = (LineChart) findViewById(R.id.lc);
-    }
 
 
-    private void initData() {
+/*    public void init(LineChart lc){
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        table.initData(lc,wm);
+    }*/
+
+
+   /* private void initData() {
         // 设置上下左右偏移量
         lc.setExtraOffsets(1f,24f,24f,0f);
 //        lc.setBackgroundColor(Color.WHITE);
@@ -118,12 +145,12 @@ public class Main2Activity extends Activity {
         yAxisLeft.setGranularity(0.001f); // 设置间隔尺寸
         yAxisLeft.setTextSize(10f); // 文本大小为12dp
         yAxisLeft.setTextColor(Color.BLACK); // 文本颜色为灰色
-/*        yAxisLeft.setValueFormatter(new IAxisValueFormatter() {
+        yAxisLeft.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 return value == yAxisLeft.getAxisMinimum() ? (int) value + "" : (int) value +"";
             }
-        });*/
+        });
         // 右侧Y轴
         lc.getAxisRight().setEnabled(false); // 不启用
     }
@@ -173,7 +200,7 @@ public class Main2Activity extends Activity {
         // 4.将折线数据设置给图表
         lc.setData(lineData);
     }
-
+*/
 
 
 

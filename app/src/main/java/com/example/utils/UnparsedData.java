@@ -1,13 +1,18 @@
 package com.example.utils;
 
+import android.util.Log;
+
 import com.example.entity.Detection;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +55,27 @@ public class UnparsedData {
         }
         return map;
     }
+
+    public  Map<Object,Object> query7O2All(String mapDate){
+        final Date date = new Date();
+        final SimpleDateFormat sd = new SimpleDateFormat("dd");//只保留天
+
+        Map<Object, Object> map = new LinkedHashMap<>();
+        try {
+            JSONArray jsonArray = new JSONArray(mapDate);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);  //解析JSON数据
+                date.setTime((Long) jsonObject.get("date"));//时间转换
+                map.put(sd.format(date), jsonObject.get("o2"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+
+
     public List query7O2(String listData) throws JSONException {
 
 

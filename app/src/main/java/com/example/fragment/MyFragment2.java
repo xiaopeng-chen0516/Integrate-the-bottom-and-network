@@ -1,6 +1,6 @@
 package com.example.fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.Main2Activity;
 import com.example.myapplication.R;
 import com.example.threadUtils.TestThread;
 import com.example.utils.Table;
@@ -24,8 +24,9 @@ import com.example.utils.UnparsedData;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 
-import org.json.JSONException;
-
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,9 @@ public class MyFragment2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        final WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+
         final Button btn=getActivity().findViewById(R.id.btn2);
         final Button btnO2=getActivity().findViewById(R.id.O2);
         t.test4();
@@ -87,7 +91,6 @@ public class MyFragment2 extends Fragment {
 
 //                    fl[i]=i;
                     }
-                    init(fl);
                     t.query7O2();
                     Toast.makeText(getActivity(), "更新图表", Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +98,7 @@ public class MyFragment2 extends Fragment {
 
         };
 
-        O2Handler=new Handler(){
+        /*O2Handler=new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
                 String string=msg.obj.toString();
@@ -106,80 +109,76 @@ public class MyFragment2 extends Fragment {
                 String str3=deleteString0(str2,a);
                 String[] strings=str3.split(",");
                     Log.i("msg",msg.obj.toString());
-                    Log.i("strings",strings[0].toString());
-//                    Toast.makeText(getActivity(),msg.obj.toString(),Toast.LENGTH_SHORT).show();
-
+                    Log.i("strings",strings[0]);
                 //转换为float类型
                 float[] O2=new float[strings.length];
                 for (int i = 0; i < strings.length; i++) {
                     O2[i]=Float.parseFloat(strings[i]);
                 }
 
-                init2(O2);
+                Log.i("O2数组", String.valueOf(O2[1]));
+                init2(O2,wm);
 
+            }
+        };*/
+
+
+        O2Handler=new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                List<Object> list=new ArrayList<>();
+                List<Object> listTime=new ArrayList<>();
+                Log.i("O2",msg.obj.toString());
+
+                Map<Object,Object> map = unparsedData.query7O2All(msg.obj.toString());
+                for (Map.Entry<Object, Object> m : map.entrySet()) {
+//                    date.setTime((Long) m.getKey());//java里面应该是按毫秒
+//                    Log.i("时间",sd.format(date));
+                    listTime.add(m.getKey().toString());
+                    list.add(m.getValue().toString());//氧气
+
+                    Log.i("时间",m.getKey().toString());
+                    Log.i("氧气",m.getValue().toString());
+                }
+
+                float[] O2=new float[list.size()];
+                Integer[] listT=new Integer[listTime.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    O2[i]=Float.parseFloat(String.valueOf(list.get(i)));
+                }
+                for (int i = 0; i < listTime.size(); i++) {
+                    listT[i]= Integer.valueOf((String.valueOf(listTime.get(i))));
+                }
+
+                init2(O2,listT,wm);
             }
         };
 
     }
 
-    public void init(float[] floats){
+/*    public void init(float[] floats){
 
         String[] title11={"O2","CO2"};
-        Table table=new Table();
+        Table2 table2 =new Table2();
         LineChart chart = getActivity().findViewById(R.id.chart);
         LineChart chart1 = getActivity().findViewById(R.id.chart1);
         // 制作7个数据点（沿x坐标轴）
         float[] floats1={0.02f,0.01f,0.03f,0.05f};
+        LineData mLineData = table2.makeLineData(floats.length,floats,title11[0]);
+        LineData mLineData1 = table2.makeLineData(floats1.length,floats1,title11[1]);
 
-//        for (int i = 0; i < title11.length; i++) {
-//            table.title(title11[i]);
-//        }
-
-
-
-        LineData mLineData = table.makeLineData(floats.length,floats,title11[0]);
-        LineData mLineData1 = table.makeLineData(floats1.length,floats1,title11[1]);
-
-        table.setChartStyle(chart, mLineData, Color.WHITE);
-        table.setChartStyle(chart1, mLineData1, Color.WHITE);
-    }
+        table2.setChartStyle(chart, mLineData, Color.WHITE);
+        table2.setChartStyle(chart1, mLineData1, Color.WHITE);
+    }*/
 
 
-
-
-
-
-
-    public void init2(float[] O2){
-
-        String[] title11={"O2","CO2"};
-        Table table=new Table();
+    public void init2(float[] O2,Integer[] listTime,WindowManager wm){
+        Log.i("氧气数据", String.valueOf(O2[2]));
+        Table table =new Table();
         LineChart chart1 = getActivity().findViewById(R.id.chart1);
-        // 制作7个数据点（沿x坐标轴）
-
-        LineData mLineData1 = table.makeLineData(O2.length,O2,title11[1]);
-
-
-        table.setChartStyle(chart1, mLineData1, Color.WHITE);
+        LineChart chart2 = getActivity().findViewById(R.id.chart2);
+        table.initData(chart1,wm,O2,listTime,0.03f,0f,0.001f);
+        table.initData(chart2,wm,O2,listTime,0.024f,0f,0.001f);
     }
 
-    public static String removeCharAt(String s, int pos) {
-        return s.substring(0, pos) + s.substring(pos + 1);
-    }
-
-    /**
-     * 删除方法一
-     * @param str
-     * @param delChar
-     * @return
-     */
-    public static String deleteString0(String str, char delChar){
-        String delStr = "";
-        for (int i = 0; i < str.length(); i++) {
-            if(str.charAt(i) != delChar){
-                delStr += str.charAt(i);
-            }
-        }
-        return delStr;
-    }
 }
